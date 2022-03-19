@@ -1,14 +1,7 @@
 <?php
 
 /**
- * VOCATIVE NAME (UKRAINIAN)
- * 
  * Convert name to vocative form in ukrainian language
- * 
- * @param int gender type (male = 1, female = 2)
- * @param string name to convert
- * 
- * @return string vocative name
  * 
  * @author Bohdan Stepanenko
  * @version 1.0
@@ -22,29 +15,44 @@ class Vocative
     protected int $gender;
     protected string $name;
 
+    /**
+     * @param integer $gender Gender type (male = 1, female = 2)
+     * @param string $name Name to convert
+     */
     public function __construct($gender, $name)
     {
         $this->gender = $gender;
         $this->name = $name;
     }
 
+    /**
+     * Convert name to vocative form
+     *
+     * @return string $vocative
+     */
     public function convertToVocative()
     {
         $last_char = substr($this->name, -1);
 
         if ($last_char == 'а') {
-            // The same rules (simple case)
             $vocative_ending = str_replace('а', 'о', $last_char);
         } else {
             $penultimate_char = substr($this->name, -2);
             $vocative_ending = $this->getVocativeEnding($penultimate_char, $last_char);
         }
 
-        $vocative_name = substr_replace($this->name, $vocative_ending, 1);
+        $vocative = substr_replace($this->name, $vocative_ending, 1);
 
-        return $vocative_name;
+        return $vocative;
     }
 
+    /**
+     * Redirecting to vocative ending generator using gender
+     * 
+     * @param string $last_char Name last letter
+     * @param string $penultimate_char Name penultimate letter
+     * @return string $ending Vovel form ending letter
+     */
     public function getVocativeEnding($last_char, $penultimate_char)
     {
         $vocative_ending = $this->gender == 1 ? $this->generateMaleEnding($last_char) : $this->generateFemaleEnding($last_char, $penultimate_char);
@@ -52,6 +60,12 @@ class Vocative
         return $vocative_ending;
     }
 
+    /**
+     * Generate vovel for male
+     * 
+     * @param string $last_char Name last letter
+     * @return string $ending Vovel form ending letter
+     */
     public function generateMaleEnding($last_char)
     {
         switch ($last_char) {
@@ -76,6 +90,13 @@ class Vocative
         return $ending;
     }
 
+    /**
+     * Generate vovel for female
+     * 
+     * @param string $last_char Name last letter
+     * @param string $penultimate_char Name penultimate letter
+     * @return string $ending Vovel form ending letter
+     */
     public function generateFemaleEnding($last_char, $penultimate_char)
     {
         if ($last_char == 'я')
@@ -83,16 +104,6 @@ class Vocative
         else
             $ending = $last_char;
 
-
         return $ending;
     }
-
-    /*
-        Закінчення -е мають іменники чоловічого роду з твердим кінцевим приголосним та мішаної групи: Артеме, Альберте, Світе, Олеже, Ігоре, Гендельфе, Туре, Святославе, Авгуре, Аватаре, Вихоре
-        Закінчення -е мають іменники жіночого роду на -я, якщо попередя літера приголосна: Зоре, Катрусе
-        Закінчення -е мають іменники чоловічого роду на -я: Ілле
-        Закінчення -є мають імена жіночого роду на -я, якщо попередя літера голосна: Лілеє, Соломіє, Софіє, Юліє
-        Закінчення -о мають іменники чоловічого та жіночого роду на -а: Зірко, Оксано, Зоріно, Дзвінко, Ярославо
-        Закінчення -ю мають чоловічі імена м'якої групи -й: Арію, Сергію, Андрію, Енею, Орію, Анатолію, Тарнаю
-    */
 }
