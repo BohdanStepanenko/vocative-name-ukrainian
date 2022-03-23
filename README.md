@@ -18,7 +18,7 @@
 
 ## Instalation
 
-**Vocative** is available on [Packagist](https://packagist.org/).
+**Vocative** is available on [Packagist](https://packagist.org/packages/bstepanenko/vocative).
 Installation via `Composer` is the recommended way:
 
 ```sh
