@@ -1,0 +1,19 @@
+{
+    "name": "bstepanenko/vocative",
+    "description": "Vocative is a PHP library that convert names to vocative in ukrainian language.",
+    "type": "library",
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bohdan Stepanenko"
+        }
+    ],
+    "minimum-stability": "stable"
+}
